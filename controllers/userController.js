@@ -38,7 +38,7 @@ exports.user_list = function(req, res) {
     } else {
       res.send(allUsers);
     }
-  });
+  }); 
 };
 
 // doSomething()
