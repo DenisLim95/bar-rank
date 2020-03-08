@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var BeatSchema = new Schema({
-	bid		: String,
+	bid		: String,	
 	beatname: String,
 	producer: String,
 	upvotes : Number,
@@ -15,3 +15,5 @@ var BeatSchema = new Schema({
 
 // Export function to create User Model Class
 module.exports = mongoose.model('Beat', BeatSchema);
+
+

@@ -1,8 +1,5 @@
-const USER_COLLECTION_NAME = "users";
-
-
-
 var User = require('../models/userModel');
+var Beat = require('../models/beatModel');
 
 // Service Layer
 // These are a list of methods/functions/services
@@ -44,12 +41,40 @@ exports.user_list = function(req, res) {
   });
 };
 
+// doSomething()
+// .then(function(result) {
+//   return doSomethingElse(result);
+// })
+// .then(function(newResult) {
+//   return doThirdThing(newResult);
+// })
+// .then(function(finalResult) {
+//   console.log('Got the final result: ' + finalResult);
+// })
+// .catch(failureCallback);
+
+
+
 // Show user details
 exports.get_user = function(req, res) {
 	var target_user = req.params.uid;
-	User.find({username:"limehead"}, (function(err, results){
-	    res.send(results);
-	}));	
+	var user_info;
+	var beats;
+
+	// Chain of promises
+	User.find({username:"J Dilla"})
+	.then(function(result) {
+		user_info = result;
+		Beat.find({producer:"J Dilla"})
+		.then(function(result) {
+			beats = result;
+			console.log(user_info);
+			console.log(beats);
+			res.send(user_info + beats);
+		});
+	});
+
+
 };
 
 
