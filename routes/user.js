@@ -5,10 +5,10 @@ var router = express.Router();
 var user_controller = require('../controllers/userController');
 
 
-// Routes
-router.get('/', user_controller.user_list);
+// Routes. Controllers handle these. 
 router.get('/ping', user_controller.ping);
-
+router.get('/', user_controller.user_list);
+router.get('/:uid', user_controller.get_user);
 
 
 module.exports = router;
