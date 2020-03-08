@@ -1,10 +1,12 @@
 
 var mongoose = require('mongoose');
+var mongoDB = 'mongodb://localhost:27017/bar_rank';
+mongoose.connect(mongoDB, {useNewUrlParser: true});
 
 // Define Schema
-var Schema = mongoose.Schema;
+// var Schema = mongoose.Schema;
 
-var UserSchema = new Schema({
+var UserSchema = new mongoose.Schema({
 	uid		: String,
 	username: String,
 	name	: String,
@@ -14,4 +16,4 @@ var UserSchema = new Schema({
 });
 
 // Export function to create User Model Class
-module.exports = mongoose.model('UserModel', UserSchema);
+module.exports = mongoose.model('User', UserSchema);

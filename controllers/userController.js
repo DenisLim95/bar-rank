@@ -1,3 +1,7 @@
+const USER_COLLECTION_NAME = "users";
+
+
+
 var User = require('../models/userModel');
 
 // Service Layer
@@ -8,40 +12,47 @@ exports.ping = function(req, res) {
 	res.send('Pong');
 };
 
-// var UserSchema = new Schema({
-// 	uid		: String,
-// 	username: String,
-// 	name	: String,
-// 	lastname: String,
-// 	password: String,
-// 	email: String
-// });
-
 exports.signup = function(req, res) {
     var userData = {
-		uid: "12345678",
-		username: "J Dilla",
-		name: "JJ",
-		lastname: "Dilla",
-		password: "yeahyeahg",
-		email: "jdilla@gmail.com"
+		uid: "123",
+		username: "limehead",
+		name: "Denis",
+		lastname: "Lim",
+		password: "yuhyuwh",
+		email: "denislim@usc.edu"
     };
-    //use schema.create to insert data into the db
+
+    // use schema.create to insert data into the db
     User.create(userData, function (err, user) {
 		if (err) {
 			return next(err)
 		} else {
-			return res.redirect('/main');
+			return res.send("Done!");
 		}
     });
+
 };
 
 // Display users
 exports.user_list = function(req, res) {
-	res.send('NOT IMPLEMENTED: User List');	
+	User.find({}, function(err, allUsers) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(allUsers);
+    }
+  });
 };
 
 // Show user details
 exports.get_user = function(req, res) {
-	res.send('User: ' + req.params.uid);
+	var target_user = req.params.uid;
+	User.find({username:"limehead"}, (function(err, results){
+	    res.send(results);
+	}));	
 };
+
+
+
+
+
