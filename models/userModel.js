@@ -17,3 +17,6 @@ var UserSchema = new mongoose.Schema({
 
 // Export function to create User Model Class
 module.exports = mongoose.model('User', UserSchema);
+
+
+
