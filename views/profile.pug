@@ -1,0 +1,11 @@
+extends layout
+
+block content
+	h1= user.username
+	p Beats
+	p= beats
+	ul
+		each beat in beats
+			li
+				p "#{beat.beatname}" - #{beat.upvotes} upvotes
+	p This is the user page bitches.

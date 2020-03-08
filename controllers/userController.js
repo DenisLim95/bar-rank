@@ -61,16 +61,14 @@ exports.get_user = function(req, res) {
 	var user_info;
 	var beats;
 
-	// Chain of promises
+	// Chain of promises - get user name, then get his/her beats
 	User.find({username:"J Dilla"})
 	.then(function(result) {
-		user_info = result;
+		user_info = result[0];
 		Beat.find({producer:"J Dilla"})
 		.then(function(result) {
 			beats = result;
-			console.log(user_info);
-			console.log(beats);
-			res.send(user_info + beats);
+			res.render('profile', { user: user_info , beats: beats});
 		});
 	});
 
