@@ -7,9 +7,10 @@ var Schema = mongoose.Schema;
 var UserSchema = new Schema({
 	uid		: String,
 	username: String,
-	c_date	: Date,
 	name	: String,
-	lastname: String
+	lastname: String,
+	password: String,
+	email: String
 });
 
 // Export function to create User Model Class

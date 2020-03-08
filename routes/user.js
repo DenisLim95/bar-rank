@@ -10,5 +10,6 @@ router.get('/ping', user_controller.ping);
 router.get('/', user_controller.user_list);
 router.get('/:uid', user_controller.get_user);
 
+router.post('/', user_controller.signup);
 
 module.exports = router;
