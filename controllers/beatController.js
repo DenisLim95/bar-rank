@@ -12,11 +12,22 @@ exports.ping = function(req, res) {
 	res.send('Pong');
 };
 
-// Get beat by beat_id
+// Get beat
+// input: beat id
+// output: view of a beat page.
 exports.get_beat = function(req, res) {
 
-	// Should I have a separate service that does the data retrieval, and this controller
-	// only focus on setting the view?
+	// Need to get 1. beat details
+	// 2. All renditions of this beat.
+	Beat.find({username:"J Dilla"})
+	.then(function(result) {
+		user_info = result[0];
+		Beat.find({producer:"J Dilla"})
+		.then(function(result) {
+			beats = result;
+			res.render('profile', { user: user_info , beats: beats});
+		});
+	});
 
 	res.send("Love - J Dilla, " + req.params.bid);
 };
@@ -28,7 +39,7 @@ exports.get_rendition = function(req, res) {
 
 // Post new beat (Note, remember we store metadata and actual file in 2 different databases)
 exports.upload_beat = function(req, res) {
-	
+
 	res.send("Uploading new beat");
 }
 
