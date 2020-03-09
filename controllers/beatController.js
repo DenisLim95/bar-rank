@@ -1,5 +1,9 @@
 var User = require('../models/beatModel');
 
+
+// 
+
+
 // Service Layer
 // These are a list of methods/functions/services
 
@@ -8,8 +12,11 @@ exports.ping = function(req, res) {
 	res.send('Pong');
 };
 
-// Display users
+// Get beat by beat_id
 exports.get_beat = function(req, res) {
+
+	// Should I have a separate service that does the data retrieval, and this controller
+	// only focus on setting the view?
 
 	res.send("Love - J Dilla, " + req.params.bid);
 };
@@ -21,8 +28,8 @@ exports.get_rendition = function(req, res) {
 
 // Post new beat (Note, remember we store metadata and actual file in 2 different databases)
 exports.upload_beat = function(req, res) {
+	
 	res.send("Uploading new beat");
-
 }
 
 // Post rendition
