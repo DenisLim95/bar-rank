@@ -22,7 +22,7 @@ exports.get_beat = function(req, res) {
 	// Need to get 1. beat details
 	// 2. All renditions of this beat.
 	var bid = req.params.bid;
-
+	
 
 	// The controller extracts data from req/res params.
 	// The controller passes this info to the Service Layer
