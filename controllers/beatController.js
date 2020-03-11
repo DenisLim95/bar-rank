@@ -4,7 +4,7 @@
 var User = require('../models/beatModel');
 
 
-const BeatService = require('../services/BeatService.js');
+// const BeatService = require('../services/BeatService.js');
 
 
 // Service Layer
@@ -30,8 +30,8 @@ exports.get_beat = function(req, res) {
 	// Service Layer is a collection of classes.
 	// Service layer does not access SQL. Data access is done in a separate Data Access Layer. 
 
-	let beatService = new BeatService('Denis', 'Lim');
-	console.log(beatService.sayHi2());
+	// let beatService = new BeatService('Denis', 'Lim');
+	// console.log(beatService.sayHi2());
 	
 
 	// Beat.find({_id:ObjectId(bid)})
