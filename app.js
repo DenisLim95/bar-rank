@@ -4,10 +4,20 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+// Routers
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var mainRouter = require('./routes/main');
+var beatRouter = require('./routes/beat');
+var userRouter = require('./routes/user');
 
 var app = express();
+
+// Set up mongoose connection
+var mongoose = require('mongoose');
+var mongoDB = 'mongodb://localhost:27017/bar_rank';
+mongoose.connect(mongoDB, {useNewUrlParser: true});
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,8 +29,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+// Setting up routers with APIs.
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/main', mainRouter);
+app.use('/beat', beatRouter);
+app.use('/user', userRouter);
+
 
 
 // catch 404 and forward to error handler
