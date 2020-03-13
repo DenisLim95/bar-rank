@@ -10,14 +10,15 @@ var mainRouter = require('./routes/main');
 var beatRouter = require('./routes/beat');
 var userRouter = require('./routes/user');
 
-var app = express();
+const app = express();
 
 // Set up mongoose connection
 var mongoose = require('mongoose');
 var mongoDB = 'mongodb://localhost:27017/bar_rank';
 mongoose.connect(mongoDB, {useNewUrlParser: true});
-var db = mongoose.connection;
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+app.locals.db = db;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
