@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var app = express();
 
 const crypto = require("crypto");
 const path = require("path");
@@ -25,7 +26,6 @@ conn.once("open", () => {
   });
 });
 
-
 // Storage
 const storage = new GridFsStorage({
   url: mongoURI,
@@ -35,7 +35,11 @@ const storage = new GridFsStorage({
         if (err) {
           return reject(err);
         }
-        const filename = file.originalname;
+
+        // Might want to perform file checks, such as file type (mp3 restricted).
+        console.log(file);
+
+        const filename = file.originalname; // Later change this to some name user specifies in a form or something.
         // const cryptname = buf.toString("hex") + path.extname(file.originalname); // This is if we want to save encrypted name.
         const fileInfo = {
           filename: filename,

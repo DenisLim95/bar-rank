@@ -5,8 +5,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var BeatSchema = new Schema({
-	bid		: String,	
-	beatname: String,
+	bid		: String,
+	name	: String,
 	producer: String,
 	upvotes : Number,
 	src		: String // this is the location of actual file in GridFS database.

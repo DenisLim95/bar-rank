@@ -1,4 +1,4 @@
-var User = require('../models/beatModel');
+var Beat = require('../models/beatModel');
 
 // var mongoose = require("mongoose");
 // var Grid = require('gridfs-stream');
@@ -8,6 +8,27 @@ var User = require('../models/beatModel');
 // mongoose.connect("mongodb://localhost:27017/rap_rank",{ useNewUrlParser: true });
 // Grid.mongo = mongoose.mongo;
 // const conn = mongoose.createConnection("mongodb://localhost:27017/bar_rank");
+
+// DB
+const mongoose = require("mongoose");
+
+const mongoURI = "mongodb://localhost:27017/bar_rank";
+
+// connection
+const conn = mongoose.createConnection(mongoURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+// init gfs
+let gfs;
+conn.once("open", () => {
+  // init stream
+  gfs = new mongoose.mongo.GridFSBucket(conn.db, {
+    bucketName: "uploads"
+  });
+});
+
 
 
 
@@ -30,17 +51,20 @@ exports.upload_page = function(req, res) {
 // output: view of a beat page.
 exports.get_beat = function(req, res) {
 
-	res.send('GET BEAT');
-	// Need to get 1. beat details
-	// 2. All renditions of this beat.
-	var bid = req.params.bid;
+	var bid = mongoose.Types.ObjectId(req.params.bid);
+	console.log(bid);
 
-
-	// The controller extracts data from req/res params.
-	// The controller passes this info to the Service Layer
-	// Service Layer does the business logic (The logical steps to a transaction that any person can understand).
-	// Service Layer is a collection of classes.
-	// Service layer does not access SQL. Data access is done in a separate Data Access Layer. 
+	const file = gfs.find({
+		_id: bid
+	})
+	.toArray((err, files) => {
+		if (!files || files.length === 0) {
+			return res.status(404).json({
+				err: "no files exist"
+		    });
+		}
+		gfs.openDownloadStream(bid).pipe(res);
+	});
 };
 
 // Get rendition
@@ -52,7 +76,29 @@ exports.get_rendition = function(req, res) {
 
 // Post new beat (Note, remember we store metadata and actual file in 2 different databases)
 exports.upload_beat = function(req, res) {
-	res.send("Uploading new beat");
+	// Store metadata into our own collection.
+	var file_metadata = req.file;		
+	var bid = file_metadata.id;
+	var name = req.body.beatname;
+	var producer = req.body.producername;
+	var upvotes = 0;
+
+	// Do Checks here...
+
+	var newBeat_data = {	
+		bid: bid, 
+		name: name, 
+		producer: producer, 
+		upvotes: upvotes
+	};
+
+	const newBeat = new Beat(newBeat_data);
+	newBeat.save(function (err) {
+		if (err) {
+			return err;
+		}
+		console.log("Saved!");
+	});
 }
 
 
