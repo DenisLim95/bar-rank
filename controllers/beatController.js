@@ -52,7 +52,6 @@ exports.upload_page = function(req, res) {
 exports.get_beat = function(req, res) {
 
 	var bid = mongoose.Types.ObjectId(req.params.bid);
-	console.log(bid);
 
 	const file = gfs.find({
 		_id: bid
@@ -95,9 +94,10 @@ exports.upload_beat = function(req, res) {
 	const newBeat = new Beat(newBeat_data);
 	newBeat.save(function (err) {
 		if (err) {
-			return err;
+			res.send("Error")
+		} else {
+			res.send("Succesfully uploaded!");
 		}
-		console.log("Saved!");
 	});
 }
 

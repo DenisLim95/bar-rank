@@ -6,6 +6,6 @@ You can use mongo as cli for database.
 	- Make file upload checks (correct media type, etc).
 - Build frontend basics to allow for basic features that provide access to APIs.
 - Add other libraries needed into the npm install dependencies.
-
+- Figure out correct way to clean up importing of modules (I'm reusing mongoose and express etc all over each file).
 
 
